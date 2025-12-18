@@ -708,6 +708,181 @@
         grid-template-columns: 1fr;
       }
     }
+    
+    /* モーダルスタイル */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .modal.active {
+      display: block;
+    }
+    
+    .modal-content {
+      background: linear-gradient(145deg, #0c0c0c, #1a1a1a);
+      margin: 3% auto;
+      padding: 0;
+      border: 1px solid rgba(0, 204, 255, 0.3);
+      border-radius: 10px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 85vh;
+      position: relative;
+      animation: slideDown 0.3s ease;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .modal-header {
+      padding: 2rem 2rem 1rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      background: linear-gradient(145deg, #0c0c0c, #1a1a1a);
+      border-radius: 10px 10px 0 0;
+      z-index: 1;
+    }
+    
+    .modal-header h2 {
+      margin: 0;
+      color: var(--accent-color);
+      font-size: 1.8rem;
+    }
+    
+    .modal-close {
+      position: absolute;
+      right: 1.5rem;
+      top: 1.5rem;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #aaa;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .modal-close:hover,
+    .modal-close:focus {
+      color: var(--accent-color);
+      background-color: rgba(0, 204, 255, 0.1);
+    }
+    
+    .modal-body {
+      padding: 2rem;
+      overflow-y: auto;
+      max-height: calc(85vh - 120px);
+      color: var(--text-color);
+      line-height: 1.8;
+    }
+    
+    .modal-body h3 {
+      color: var(--accent-color);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+    
+    .modal-body h4 {
+      color: #fff;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+    
+    .modal-body p {
+      margin-bottom: 1rem;
+      color: #ccc;
+    }
+    
+    .modal-body ul, .modal-body ol {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-body li {
+      margin-bottom: 0.5rem;
+      color: #ccc;
+    }
+    
+    .modal-body .lang-content {
+      display: none;
+    }
+    
+    .modal-body .lang-content.active {
+      display: block;
+    }
+    
+    body.modal-open {
+      overflow: hidden;
+    }
+    
+    @media (max-width: 768px) {
+      .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        max-height: 90vh;
+      }
+      
+      .modal-header {
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
+      }
+      
+      .modal-header h2 {
+        font-size: 1.4rem;
+        padding-right: 2rem;
+      }
+      
+      .modal-close {
+        right: 1rem;
+        top: 1rem;
+        font-size: 1.5rem;
+        width: 35px;
+        height: 35px;
+      }
+      
+      .modal-body {
+        padding: 1.5rem;
+        max-height: calc(90vh - 100px);
+      }
+      
+      .modal-body h3 {
+        font-size: 1.2rem;
+      }
+      
+      .modal-body h4 {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 
@@ -927,11 +1102,289 @@
     </div>
   </section>
 
+  <!-- プライバシーポリシーモーダル -->
+  <div id="privacy-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="privacy-modal-title">プライバシーポリシー</h2>
+        <span class="modal-close" onclick="closeModal('privacy-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="lang-content" data-lang="jp">
+          <p>Zyniqo株式会社（以下「当社」といいます）は、お客様の個人情報の保護に最大限の注意を払い、以下のとおりプライバシーポリシーを定めます。</p>
+          
+          <h3>1. 個人情報の定義</h3>
+          <p>個人情報とは、個人情報保護法にいう「個人情報」を指すものとし、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日、その他の記述等により特定の個人を識別することができるもの（他の情報と容易に照合することができ、それにより特定の個人を識別することができることとなるものを含みます）を指します。</p>
+          
+          <h3>2. 個人情報の収集方法</h3>
+          <p>当社は、お客様が当社のサービスを利用される際に、お名前、メールアドレス、会社名等の個人情報をお尋ねすることがあります。また、お客様と提携先などとの間でなされた取引記録や決済に関する情報を含む個人情報を、当社の提携先（情報提供元、広告主、広告配信先などを含みます。以下「提携先」といいます）などから収集することがあります。</p>
+          
+          <h3>3. 個人情報を収集・利用する目的</h3>
+          <p>当社が個人情報を収集・利用する目的は、以下のとおりです。</p>
+          <ul>
+            <li>当社サービスの提供・運営のため</li>
+            <li>お客様からのお問い合わせに回答するため（本人確認を行うことを含みます）</li>
+            <li>お客様が利用中のサービスの新機能、更新情報、キャンペーン等のご案内のメールを送付するため</li>
+            <li>メンテナンス、重要なお知らせなど必要に応じたご連絡のため</li>
+            <li>利用規約に違反したお客様や、不正・不当な目的でサービスを利用しようとするお客様の特定をし、ご利用をお断りするため</li>
+            <li>お客様にご自身の登録情報の閲覧や変更、削除、ご利用状況の閲覧を行っていただくため</li>
+            <li>上記の利用目的に付随する目的</li>
+          </ul>
+          
+          <h3>4. 利用目的の変更</h3>
+          <p>当社は、利用目的が変更前と関連性を有すると合理的に認められる場合に限り、個人情報の利用目的を変更するものとします。利用目的の変更を行った場合には、変更後の目的について、当社所定の方法により、お客様に通知し、または本ウェブサイト上に公表するものとします。</p>
+          
+          <h3>5. 個人情報の第三者提供</h3>
+          <p>当社は、次に掲げる場合を除いて、あらかじめお客様の同意を得ることなく、第三者に個人情報を提供することはありません。ただし、個人情報保護法その他の法令で認められる場合を除きます。</p>
+          <ul>
+            <li>人の生命、身体または財産の保護のために必要がある場合であって、本人の同意を得ることが困難であるとき</li>
+            <li>公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合であって、本人の同意を得ることが困難であるとき</li>
+            <li>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、本人の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき</li>
+          </ul>
+          
+          <h3>6. 個人情報の開示</h3>
+          <p>当社は、お客様ご本人から個人情報の開示を求められたときは、お客様ご本人に対し、遅滞なくこれを開示します。ただし、開示することにより次のいずれかに該当する場合は、その全部または一部を開示しないこともあり、開示しない決定をした場合には、その旨を遅滞なく通知します。</p>
+          <ul>
+            <li>本人または第三者の生命、身体、財産その他の権利利益を害するおそれがある場合</li>
+            <li>当社の業務の適正な実施に著しい支障を及ぼすおそれがある場合</li>
+            <li>その他法令に違反することとなる場合</li>
+          </ul>
+          
+          <h3>7. 個人情報の訂正および削除</h3>
+          <p>お客様は、当社の保有する自己の個人情報が誤った情報である場合には、当社が定める手続きにより、当社に対して個人情報の訂正、追加または削除（以下「訂正等」といいます）を請求することができます。当社は、お客様から前項の請求を受けてその請求に応じる必要があると判断した場合には、遅滞なく、当該個人情報の訂正等を行うものとします。</p>
+          
+          <h3>8. 個人情報の利用停止等</h3>
+          <p>当社は、本人から、個人情報が、利用目的の範囲を超えて取り扱われているという理由、または不正の手段により取得されたものであるという理由により、その利用の停止または消去（以下「利用停止等」といいます）を求められた場合には、遅滞なく必要な調査を行います。前項の調査結果に基づき、その請求に応じる必要があると判断した場合には、遅滞なく、当該個人情報の利用停止等を行います。</p>
+          
+          <h3>9. プライバシーポリシーの変更</h3>
+          <p>本ポリシーの内容は、法令その他本ポリシーに別段の定めのある事項を除いて、お客様に通知することなく、変更することができるものとします。当社が別途定める場合を除いて、変更後のプライバシーポリシーは、本ウェブサイトに掲載したときから効力を生じるものとします。</p>
+          
+          <h3>10. お問い合わせ窓口</h3>
+          <p>本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。</p>
+          <p>Zyniqo株式会社<br>
+          メールアドレス：info@zyniqo.co.jp<br>
+          所在地：東京都新宿区西落合１－１４－１１</p>
+        </div>
+        
+        <div class="lang-content" data-lang="en">
+          <p>Zyniqo Inc. (hereinafter referred to as "the Company") places the utmost importance on protecting your personal information and establishes this Privacy Policy as follows.</p>
+          
+          <h3>1. Definition of Personal Information</h3>
+          <p>Personal information refers to "personal information" as defined in the Personal Information Protection Act, and refers to information about living individuals that can identify specific individuals by name, date of birth, or other descriptions contained in such information (including information that can be easily collated with other information and thereby identify specific individuals).</p>
+          
+          <h3>2. Methods of Collecting Personal Information</h3>
+          <p>When you use our services, we may ask for personal information such as your name, email address, and company name. We may also collect personal information, including transaction records and payment information between you and our partners (including information providers, advertisers, and advertising distributors; hereinafter referred to as "Partners").</p>
+          
+          <h3>3. Purpose of Collecting and Using Personal Information</h3>
+          <p>The purposes for which the Company collects and uses personal information are as follows:</p>
+          <ul>
+            <li>To provide and operate our services</li>
+            <li>To respond to inquiries from customers (including identity verification)</li>
+            <li>To send emails about new features, updates, campaigns, etc. of services being used by customers</li>
+            <li>To contact you as necessary, such as for maintenance and important notices</li>
+            <li>To identify customers who violate the Terms of Service or attempt to use the service for fraudulent or improper purposes, and to refuse their use</li>
+            <li>To allow customers to view, change, delete, and view their registration information and usage status</li>
+            <li>Purposes incidental to the above purposes of use</li>
+          </ul>
+          
+          <h3>4. Changes to the Purpose of Use</h3>
+          <p>The Company will change the purpose of use of personal information only if it is reasonably recognized that the purpose of use is related to the purpose before the change. If the purpose of use is changed, the Company will notify customers of the changed purpose by the method specified by the Company or announce it on this website.</p>
+          
+          <h3>5. Provision of Personal Information to Third Parties</h3>
+          <p>The Company will not provide personal information to third parties without obtaining the customer's prior consent, except in the following cases. However, this does not apply to cases permitted by the Personal Information Protection Act and other laws and regulations.</p>
+          <ul>
+            <li>When it is necessary to protect the life, body, or property of a person and it is difficult to obtain the consent of the person</li>
+            <li>When it is especially necessary to improve public health or promote the sound growth of children and it is difficult to obtain the consent of the person</li>
+            <li>When it is necessary to cooperate with a national or local government agency or a person entrusted by such agency in performing affairs stipulated by laws and regulations, and obtaining the consent of the person is likely to hinder the performance of such affairs</li>
+          </ul>
+          
+          <h3>6. Disclosure of Personal Information</h3>
+          <p>When requested by the customer to disclose personal information, the Company will disclose it to the customer without delay. However, if the disclosure falls under any of the following, the Company may not disclose all or part of it, and if the Company decides not to disclose, it will notify the customer without delay.</p>
+          <ul>
+            <li>When there is a risk of harming the life, body, property, or other rights and interests of the person or a third party</li>
+            <li>When there is a risk of significantly hindering the proper implementation of the Company's business</li>
+            <li>When it would violate other laws and regulations</li>
+          </ul>
+          
+          <h3>7. Correction and Deletion of Personal Information</h3>
+          <p>If the personal information held by the Company about the customer is incorrect, the customer may request the Company to correct, add, or delete (hereinafter referred to as "correction, etc.") the personal information in accordance with the procedures established by the Company. If the Company receives a request from a customer as described in the preceding paragraph and determines that it is necessary to respond to the request, the Company will correct the personal information without delay.</p>
+          
+          <h3>8. Suspension of Use of Personal Information</h3>
+          <p>If the Company is requested by the person to suspend or delete (hereinafter referred to as "suspension of use, etc.") the use of personal information on the grounds that the personal information is being handled beyond the scope of the purpose of use or that it was obtained by fraudulent means, the Company will conduct the necessary investigation without delay. Based on the results of the investigation in the preceding paragraph, if the Company determines that it is necessary to respond to the request, the Company will suspend the use of the personal information without delay.</p>
+          
+          <h3>9. Changes to the Privacy Policy</h3>
+          <p>The contents of this Policy may be changed without notice to customers, except for matters otherwise specified in laws and regulations or this Policy. Unless otherwise specified by the Company, the changed Privacy Policy will take effect from the time it is posted on this website.</p>
+          
+          <h3>10. Contact Information</h3>
+          <p>For inquiries regarding this Policy, please contact the following:</p>
+          <p>Zyniqo Inc.<br>
+          Email: info@zyniqo.co.jp<br>
+          Address: 1-14-11 Nishi-Ochiai, Shinjuku-ku, Tokyo, Japan</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 利用規約モーダル -->
+  <div id="terms-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="terms-modal-title">利用規約</h2>
+        <span class="modal-close" onclick="closeModal('terms-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="lang-content" data-lang="jp">
+          <p>この利用規約（以下「本規約」といいます）は、Zyniqo株式会社（以下「当社」といいます）が提供するサービス（以下「本サービス」といいます）の利用条件を定めるものです。本サービスをご利用される際は、本規約に同意いただいたものとみなします。</p>
+          
+          <h3>第1条（適用）</h3>
+          <p>本規約は、お客様と当社との間の本サービスの利用に関わる一切の関係に適用されるものとします。当社は本サービスに関し、本規約のほか、ご利用にあたってのルール等、各種の定め（以下「個別規定」といいます）をすることがあります。これら個別規定はその名称のいかんに関わらず、本規約の一部を構成するものとします。本規約の規定が前条の個別規定の規定と矛盾する場合には、個別規定において特段の定めなき限り、個別規定の規定が優先されるものとします。</p>
+          
+          <h3>第2条（利用登録）</h3>
+          <p>本サービスにおいては、登録希望者が本規約に同意の上、当社の定める方法によって利用登録を申請し、当社がこれを承認することによって、利用登録が完了するものとします。当社は、利用登録の申請者に以下の事由があると判断した場合、利用登録の申請を承認しないことがあり、その理由については一切の開示義務を負わないものとします。</p>
+          <ul>
+            <li>利用登録の申請に際して虚偽の事項を届け出た場合</li>
+            <li>本規約に違反したことがある者からの申請である場合</li>
+            <li>その他、当社が利用登録を相当でないと判断した場合</li>
+          </ul>
+          
+          <h3>第3条（禁止事項）</h3>
+          <p>お客様は、本サービスの利用にあたり、以下の行為をしてはなりません。</p>
+          <ul>
+            <li>法令または公序良俗に違反する行為</li>
+            <li>犯罪行為に関連する行為</li>
+            <li>当社、本サービスの他のお客様、または第三者のサーバーまたはネットワークの機能を破壊したり、妨害したりする行為</li>
+            <li>当社のサービスの運営を妨害するおそれのある行為</li>
+            <li>他のお客様に関する個人情報等を収集または蓄積する行為</li>
+            <li>不正アクセスをし、またはこれを試みる行為</li>
+            <li>他のお客様に成りすます行為</li>
+            <li>当社のサービスに関連して、反社会的勢力に対して直接または間接に利益を供与する行為</li>
+            <li>当社、本サービスの他のお客様または第三者の知的財産権、肖像権、プライバシー、名誉その他の権利または利益を侵害する行為</li>
+            <li>その他、当社が不適切と判断する行為</li>
+          </ul>
+          
+          <h3>第4条（本サービスの提供の停止等）</h3>
+          <p>当社は、以下のいずれかの事由があると判断した場合、お客様に事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします。</p>
+          <ul>
+            <li>本サービスにかかるコンピュータシステムの保守点検または更新を行う場合</li>
+            <li>地震、落雷、火災、停電または天災などの不可抗力により、本サービスの提供が困難となった場合</li>
+            <li>コンピュータまたは通信回線等が事故により停止した場合</li>
+            <li>その他、当社が本サービスの提供が困難と判断した場合</li>
+          </ul>
+          
+          <h3>第5条（利用制限および登録抹消）</h3>
+          <p>当社は、お客様が以下のいずれかに該当する場合には、事前の通知なく、お客様に対して、本サービスの全部もしくは一部の利用を制限し、またはお客様としての登録を抹消することができるものとします。</p>
+          <ul>
+            <li>本規約のいずれかの条項に違反した場合</li>
+            <li>登録事項に虚偽の事実があることが判明した場合</li>
+            <li>その他、当社が本サービスの利用を適当でないと判断した場合</li>
+          </ul>
+          
+          <h3>第6条（保証の否認および免責事項）</h3>
+          <p>当社は、本サービスに事実上または法律上の瑕疵（安全性、信頼性、正確性、完全性、有効性、特定の目的への適合性、セキュリティなどに関する欠陥、エラーやバグ、権利侵害などを含みます）がないことを明示的にも黙示的にも保証しておりません。</p>
+          <p>当社は、本サービスに起因してお客様に生じたあらゆる損害について一切の責任を負いません。ただし、本サービスに関する当社とお客様との間の契約（本規約を含みます）が消費者契約法に定める消費者契約となる場合、この免責規定は適用されません。</p>
+          
+          <h3>第7条（サービス内容の変更等）</h3>
+          <p>当社は、お客様に通知することなく、本サービスの内容を変更しまたは本サービスの提供を中止することができるものとし、これによってお客様に生じた損害について一切の責任を負いません。</p>
+          
+          <h3>第8条（利用規約の変更）</h3>
+          <p>当社は、必要と判断した場合には、お客様に通知することなくいつでも本規約を変更することができるものとします。なお、本規約の変更後、本サービスの利用を開始した場合には、当該お客様は変更後の規約に同意したものとみなします。</p>
+          
+          <h3>第9条（個人情報の取扱い）</h3>
+          <p>当社は、本サービスの利用によって取得する個人情報については、当社「プライバシーポリシー」に従い適切に取り扱うものとします。</p>
+          
+          <h3>第10条（通知または連絡）</h3>
+          <p>お客様と当社との間の通知または連絡は、当社の定める方法によって行うものとします。当社は、お客様から、当社が別途定める方式に従った変更届け出がない限り、現在登録されている連絡先が有効なものとみなして当該連絡先へ通知または連絡を行い、これらは、発信時にお客様へ到達したものとみなします。</p>
+          
+          <h3>第11条（権利義務の譲渡の禁止）</h3>
+          <p>お客様は、当社の書面による事前の承諾なく、利用契約上の地位または本規約に基づく権利もしくは義務を第三者に譲渡し、または担保に供することはできません。</p>
+          
+          <h3>第12条（準拠法・裁判管轄）</h3>
+          <p>本規約の解釈にあたっては、日本法を準拠法とします。本サービスに関して紛争が生じた場合には、当社の本店所在地を管轄する裁判所を専属的合意管轄とします。</p>
+          
+          <p>以上</p>
+          <p>2025年4月23日 制定</p>
+        </div>
+        
+        <div class="lang-content" data-lang="en">
+          <p>These Terms of Service (hereinafter referred to as "these Terms") set forth the terms and conditions for the use of services (hereinafter referred to as "the Service") provided by Zyniqo Inc. (hereinafter referred to as "the Company"). By using the Service, you are deemed to have agreed to these Terms.</p>
+          
+          <h3>Article 1 (Application)</h3>
+          <p>These Terms shall apply to all relationships between customers and the Company regarding the use of the Service. The Company may establish various provisions (hereinafter referred to as "Individual Provisions") such as rules for use in addition to these Terms regarding the Service. These Individual Provisions shall constitute a part of these Terms regardless of their name. If the provisions of these Terms contradict the provisions of the Individual Provisions in the preceding paragraph, the provisions of the Individual Provisions shall take precedence unless otherwise specified in the Individual Provisions.</p>
+          
+          <h3>Article 2 (User Registration)</h3>
+          <p>For the Service, user registration shall be completed when a registration applicant agrees to these Terms, applies for user registration by the method specified by the Company, and the Company approves the application. The Company may not approve the application for user registration if the Company determines that the applicant has any of the following reasons, and the Company shall not be obligated to disclose the reasons.</p>
+          <ul>
+            <li>If false information is provided in the application for user registration</li>
+            <li>If the application is from a person who has violated these Terms</li>
+            <li>If the Company otherwise determines that user registration is not appropriate</li>
+          </ul>
+          
+          <h3>Article 3 (Prohibited Acts)</h3>
+          <p>Customers shall not engage in any of the following acts when using the Service.</p>
+          <ul>
+            <li>Acts that violate laws and regulations or public order and morals</li>
+            <li>Acts related to criminal activities</li>
+            <li>Acts that destroy or interfere with the functions of servers or networks of the Company, other customers of the Service, or third parties</li>
+            <li>Acts that may interfere with the operation of the Company's services</li>
+            <li>Acts of collecting or accumulating personal information about other customers</li>
+            <li>Acts of unauthorized access or attempting to do so</li>
+            <li>Acts of impersonating other customers</li>
+            <li>Acts of providing benefits directly or indirectly to antisocial forces in connection with the Company's services</li>
+            <li>Acts that infringe on the intellectual property rights, portrait rights, privacy, honor, or other rights or interests of the Company, other customers of the Service, or third parties</li>
+            <li>Other acts that the Company deems inappropriate</li>
+          </ul>
+          
+          <h3>Article 4 (Suspension of Service Provision)</h3>
+          <p>The Company may suspend or discontinue all or part of the Service without prior notice to customers if the Company determines that any of the following reasons exists.</p>
+          <ul>
+            <li>When performing maintenance, inspection, or updating of the computer system related to the Service</li>
+            <li>When it becomes difficult to provide the Service due to force majeure such as earthquakes, lightning, fires, power outages, or natural disasters</li>
+            <li>When computers or communication lines stop due to accidents</li>
+            <li>Otherwise, when the Company determines that it is difficult to provide the Service</li>
+          </ul>
+          
+          <h3>Article 5 (Restriction on Use and Deletion of Registration)</h3>
+          <p>If a customer falls under any of the following cases, the Company may, without prior notice, restrict all or part of the customer's use of the Service or delete the customer's registration.</p>
+          <ul>
+            <li>If the customer violates any provisions of these Terms</li>
+            <li>If it is discovered that there are false facts in the registration information</li>
+            <li>Otherwise, if the Company determines that the use of the Service is not appropriate</li>
+          </ul>
+          
+          <h3>Article 6 (Disclaimer of Warranties and Exemption)</h3>
+          <p>The Company does not expressly or implicitly guarantee that the Service is free from factual or legal defects (including defects related to safety, reliability, accuracy, completeness, effectiveness, fitness for a particular purpose, security, errors or bugs, infringement of rights, etc.).</p>
+          <p>The Company shall not be liable for any damages caused to customers arising from the Service. However, this exemption provision shall not apply if the contract between the Company and the customer regarding the Service (including these Terms) constitutes a consumer contract as defined in the Consumer Contract Act.</p>
+          
+          <h3>Article 7 (Changes to Service Content)</h3>
+          <p>The Company may change the content of the Service or discontinue the provision of the Service without notifying customers, and the Company shall not be liable for any damages caused to customers thereby.</p>
+          
+          <h3>Article 8 (Changes to Terms of Service)</h3>
+          <p>The Company may change these Terms at any time without notifying customers if the Company deems it necessary. If a customer starts using the Service after the Terms are changed, the customer shall be deemed to have agreed to the changed Terms.</p>
+          
+          <h3>Article 9 (Handling of Personal Information)</h3>
+          <p>The Company shall appropriately handle personal information acquired through the use of the Service in accordance with the Company's "Privacy Policy."</p>
+          
+          <h3>Article 10 (Notice or Contact)</h3>
+          <p>Notices or communications between customers and the Company shall be made by the method specified by the Company. Unless a change notification is received from the customer in accordance with the format separately specified by the Company, the Company shall deem the currently registered contact information to be valid and send notices or communications to that contact information, which shall be deemed to have reached the customer at the time of transmission.</p>
+          
+          <h3>Article 11 (Prohibition of Transfer of Rights and Obligations)</h3>
+          <p>Customers may not transfer their position under the usage contract or rights or obligations under these Terms to a third party or provide them as collateral without the prior written consent of the Company.</p>
+          
+          <h3>Article 12 (Governing Law and Jurisdiction)</h3>
+          <p>Japanese law shall be the governing law for the interpretation of these Terms. In the event of a dispute arising from the Service, the court having jurisdiction over the location of the Company's head office shall be the court of exclusive agreed jurisdiction.</p>
+          
+          <p>End</p>
+          <p>Established: April 23, 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- フッター -->
   <footer>
     <div class="container">
       <p>&copy; 2025 Zyniqo株式会社. All rights reserved.</p>
-      <p><a href="privacy-policy-jp.html" target="_blank" id="footer-privacy">プライバシーポリシー</a> | <a href="terms-of-service-jp.html" target="_blank" id="footer-terms">利用規約</a></p>
+      <p><a href="#" onclick="openModal('privacy-modal'); return false;" id="footer-privacy">プライバシーポリシー</a> | <a href="#" onclick="openModal('terms-modal'); return false;" id="footer-terms">利用規約</a></p>
     </div>
   </footer>
 
@@ -1200,21 +1653,12 @@
         document.getElementById('form-cancel-text').textContent = langData.formCancel;
       }
       
-      // フッターリンクの更新
+      // フッターリンクの更新（テキストのみ、hrefはモーダルなので変更しない）
       const footerPrivacy = document.getElementById('footer-privacy');
       const footerTerms = document.getElementById('footer-terms');
       if (footerPrivacy && footerTerms) {
-        if (lang === 'en') {
-          footerPrivacy.href = 'privacy-policy-en.html';
-          footerPrivacy.textContent = langData.footerPrivacy;
-          footerTerms.href = 'terms-of-service-en.html';
-          footerTerms.textContent = langData.footerTerms;
-        } else {
-          footerPrivacy.href = 'privacy-policy-jp.html';
-          footerPrivacy.textContent = langData.footerPrivacy;
-          footerTerms.href = 'terms-of-service-jp.html';
-          footerTerms.textContent = langData.footerTerms;
-        }
+        footerPrivacy.textContent = langData.footerPrivacy;
+        footerTerms.textContent = langData.footerTerms;
       }
       
       // メールアドレス
@@ -1321,6 +1765,90 @@ document.getElementById('contact-form-element').addEventListener('submit', funct
   
   // 通常のフォーム送信を許可（Formspreeが自動でCAPTCHAページを表示）
   // e.preventDefault() を呼ばないことで、ブラウザがFormspreeにリダイレクトされる
+});
+
+// モーダル機能
+function openModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
+    
+    // 現在の言語に応じてコンテンツを表示
+    const currentLang = document.querySelector('.language-switch a.active').getAttribute('data-lang');
+    updateModalLanguage(modalId, currentLang);
+  }
+}
+
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+  }
+}
+
+function updateModalLanguage(modalId, lang) {
+  const modal = document.getElementById(modalId);
+  if (!modal) return;
+  
+  // すべての言語コンテンツを非表示
+  const langContents = modal.querySelectorAll('.lang-content');
+  langContents.forEach(content => {
+    content.classList.remove('active');
+  });
+  
+  // 選択された言語のコンテンツを表示
+  const activeContent = modal.querySelector(`.lang-content[data-lang="${lang}"]`);
+  if (activeContent) {
+    activeContent.classList.add('active');
+  }
+  
+  // モーダルタイトルを更新
+  const modalTitle = modal.querySelector('.modal-header h2');
+  if (modalTitle) {
+    if (modalId === 'privacy-modal') {
+      modalTitle.textContent = lang === 'en' ? 'Privacy Policy' : 'プライバシーポリシー';
+    } else if (modalId === 'terms-modal') {
+      modalTitle.textContent = lang === 'en' ? 'Terms of Service' : '利用規約';
+    }
+  }
+}
+
+// すべてのモーダルの言語を更新する関数
+function updateAllModalsLanguage(lang) {
+  updateModalLanguage('privacy-modal', lang);
+  updateModalLanguage('terms-modal', lang);
+}
+
+// 言語切り替え時にモーダルの言語も更新
+const originalChangeLanguage = changeLanguage;
+changeLanguage = function(lang) {
+  originalChangeLanguage(lang);
+  updateAllModalsLanguage(lang);
+};
+
+// モーダル外をクリックしたら閉じる
+window.addEventListener('click', function(event) {
+  if (event.target.classList.contains('modal')) {
+    closeModal(event.target.id);
+  }
+});
+
+// ESCキーでモーダルを閉じる
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape' || event.keyCode === 27) {
+    const activeModal = document.querySelector('.modal.active');
+    if (activeModal) {
+      closeModal(activeModal.id);
+    }
+  }
+});
+
+// ページ読み込み時に初期言語でモーダルコンテンツを設定
+document.addEventListener('DOMContentLoaded', function() {
+  const currentLang = document.querySelector('.language-switch a.active').getAttribute('data-lang');
+  updateAllModalsLanguage(currentLang);
 });
 </script>
 </body>
