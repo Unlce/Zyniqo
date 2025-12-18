@@ -904,8 +904,7 @@
           <!-- Formspree hidden fields -->
           <input type="hidden" name="_replyto" id="hidden-replyto">
           <input type="hidden" name="_subject" id="hidden-subject">
-          <input type="hidden" name="_next" value="#contact">
-          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://unlce.github.io/Zyniqo/#contact">
           
           <div class="form-actions">
             <button type="submit" class="btn-submit" id="form-submit">
@@ -1316,46 +1315,12 @@ function hideContactForm() {
 
 // フォーム送信処理
 document.getElementById('contact-form-element').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
   // hidden フィールドに値を設定
   document.getElementById('hidden-replyto').value = document.getElementById('email').value;
   document.getElementById('hidden-subject').value = 'Zyniqo: ' + document.getElementById('subject').value;
   
-  const formData = new FormData(this);
-  const submitBtn = document.getElementById('form-submit');
-  const formMessage = document.getElementById('form-message');
-  
-  // ボタンを無効化
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...';
-  
-  fetch('https://formspree.io/f/mkgjyjnb', {
-    method: 'POST',
-    body: formData,
-    headers: {
-      'Accept': 'application/json'
-    }
-  })
-  .then(response => {
-    if (response.ok) {
-      formMessage.textContent = 'お問い合わせありがとうございます。メッセージが送信されました。';
-      formMessage.className = 'form-message success';
-      formMessage.style.display = 'block';
-      this.reset();
-    } else {
-      throw new Error('送信エラー');
-    }
-  })
-  .catch(error => {
-    formMessage.textContent = '送信中にエラーが発生しました。もう一度お試しください。';
-    formMessage.className = 'form-message error';
-    formMessage.style.display = 'block';
-  })
-  .finally(() => {
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span id="form-submit-text">送信</span>';
-  });
+  // 通常のフォーム送信を許可（Formspreeが自動でCAPTCHAページを表示）
+  // e.preventDefault() を呼ばないことで、ブラウザがFormspreeにリダイレクトされる
 });
 </script>
 </body>
