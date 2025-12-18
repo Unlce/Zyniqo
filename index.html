@@ -1330,7 +1330,7 @@ document.getElementById('contact-form-element').addEventListener('submit', funct
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...';
   
-  fetch(this.action, {
+  fetch('https://formspree.io/f/mkgjyjnb', {
     method: 'POST',
     body: formData,
     headers: {
