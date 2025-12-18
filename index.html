@@ -1700,6 +1700,11 @@
         el.classList.remove('active');
       });
       document.querySelector(`.language-switch a[data-lang="${lang}"]`).classList.add('active');
+      
+      // モーダルの言語も更新
+      if (typeof updateAllModalsLanguage === 'function') {
+        updateAllModalsLanguage(lang);
+      }
     }
     
     // 言語切り替えボタンのイベントリスナー
@@ -1775,7 +1780,8 @@ function openModal(modalId) {
     document.body.classList.add('modal-open');
     
     // 現在の言語に応じてコンテンツを表示
-    const currentLang = document.querySelector('.language-switch a.active').getAttribute('data-lang');
+    const activeLangElement = document.querySelector('.language-switch a.active');
+    const currentLang = activeLangElement ? activeLangElement.getAttribute('data-lang') : 'jp';
     updateModalLanguage(modalId, currentLang);
   }
 }
@@ -1821,13 +1827,6 @@ function updateAllModalsLanguage(lang) {
   updateModalLanguage('terms-modal', lang);
 }
 
-// 言語切り替え時にモーダルの言語も更新
-const originalChangeLanguage = changeLanguage;
-changeLanguage = function(lang) {
-  originalChangeLanguage(lang);
-  updateAllModalsLanguage(lang);
-};
-
 // モーダル外をクリックしたら閉じる
 window.addEventListener('click', function(event) {
   if (event.target.classList.contains('modal')) {
@@ -1847,7 +1846,8 @@ document.addEventListener('keydown', function(event) {
 
 // ページ読み込み時に初期言語でモーダルコンテンツを設定
 document.addEventListener('DOMContentLoaded', function() {
-  const currentLang = document.querySelector('.language-switch a.active').getAttribute('data-lang');
+  const activeLangElement = document.querySelector('.language-switch a.active');
+  const currentLang = activeLangElement ? activeLangElement.getAttribute('data-lang') : 'jp';
   updateAllModalsLanguage(currentLang);
 });
 </script>
